@@ -19,6 +19,14 @@ class User extends Authenticatable
 
     protected $casts = ['email_verified_at' => 'datetime'];
 
+    public static function findDestinationUser( $request)
+    {
+        $destinationQuery = User::query()->where('first_name', $request->get('first_name'));
+        return $request->get('type') == 'account'
+            ? $destinationQuery->where('account_number', $request->get('account_number'))->first()
+            : $destinationQuery->where('shaba_number', $request->get('shaba_number'))->first();
+    }
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
@@ -32,8 +40,15 @@ class User extends Authenticatable
         return $token;
     }
 
-    public function transactions()
+
+    public function receivedTransactions()
+    {
+        return $this->hasMany(Transaction::class,'destination_id');
+    }
+
+    public function sentTransactions()
     {
         return $this->hasMany(Transaction::class,'source_id');
     }
+
 }

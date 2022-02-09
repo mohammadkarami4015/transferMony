@@ -6,16 +6,16 @@ use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TransactionResponse extends JsonResource
+class ReceivedTransactionResponse extends JsonResource
 {
 
     public function toArray($request)
     {
         /** @var Transaction $this */
         return [
-            'destination_first_name' => $this->destinationUser()->first_number,
-            'destination_last_name' => $this->destinationUser()->last_number,
-            'destination_number' => $this->destination_number,
+            'source_first_name' => $this->sourceUser->first_name,
+            'source_last_name' => $this->sourceUser->last_name,
+            'source_number' => $this->sourceUser->account_number,
             'amount'=>$this->amount,
             'date'=>$this->created_at->format('Y:m:d H:i'),
             'status'=>$this->status

@@ -19,7 +19,8 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('destination_id')->constrained('users');
             $table->text('description');
             $table->string('amount');
-            $table->boolean('status')->default(true);
+            $table->string('status');
+            $table->text('ref_code')->nullable();
             $table->timestamps();
         });
     }

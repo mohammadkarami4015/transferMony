@@ -30,6 +30,7 @@ class TransactionRequest extends CustomApiRequest
                 'required'
             ],
             'type' => [
+                'required',
                 Rule::in(['account', 'shaba'])
             ],
             'account_number' => [
@@ -39,6 +40,9 @@ class TransactionRequest extends CustomApiRequest
             'shaba_number' => [
                 Rule::requiredIf($this->type == 'shaba'),
                 'min:16'
+            ],
+            'description' => [
+                'required'
             ],
             'amount' => [
                 'required',

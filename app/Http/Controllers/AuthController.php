@@ -24,7 +24,7 @@ class AuthController extends Controller
         if (!Hash::check($request->get('password'), $user->password))
             return Response::error(Status::INVALID_PASSWORD);
 
-        return Response::success(Status::OPERATION_SUCCESSFUL, ['token' => $user->generateToken()]);
+        return Response::success(['token' => $user->generateToken()]);
     }
 
     public function register(RegisterRequest $request)
